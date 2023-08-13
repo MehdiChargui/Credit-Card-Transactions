@@ -5,13 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class TransactionFilter {
-	private BigDecimal amount;
+	private double amount;
 	private String merchant;
 	private TransactionStatus status;
 }

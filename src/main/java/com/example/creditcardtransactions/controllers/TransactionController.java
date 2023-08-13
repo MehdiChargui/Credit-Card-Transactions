@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,18 +33,23 @@ public class TransactionController {
 	@GetMapping
 	public ResponseEntity<Page<Transaction>> listTransactions(
 			@RequestParam(name = "page", defaultValue = "0") int page,
-			@RequestParam(name = "size", defaultValue = "10") int size,
-			@RequestParam(name = "amount", required = false) BigDecimal amount,
+			@RequestParam(name = "size", defaultValue = "5") int size,
+			@RequestParam(name = "amount", required = false) double amount,
 			@RequestParam(name = "merchant", required = false) String merchant,
-			@RequestParam(name = "status", required = false) TransactionStatus status) throws IOException {
+			@RequestParam(name = "status", required = false) TransactionStatus status,
+			@RequestParam(name = "sort", defaultValue = "amount") String sort) {
 		try {
-			
+			// Create a TransactionFilter based on the provided parameters
 			TransactionFilter filter = new TransactionFilter();
 				filter.setAmount(amount);
 				filter.setMerchant(merchant);
 				filter.setStatus(status);
 
-			Pageable pageable = PageRequest.of(page, size);
+			// Configure sorting
+			Sort sortOrder = Sort.by(Sort.Order.desc(sort));
+			Pageable pageable = PageRequest.of(page, size, sortOrder);
+
+			// Retrieve and return filtered, paginated, and sorted transactions
 			Page<Transaction> transactions = transactionService.getFilteredTransactions(filter, pageable);
 			return new ResponseEntity<>(transactions, HttpStatus.OK);
 		} catch (Exception e) {
