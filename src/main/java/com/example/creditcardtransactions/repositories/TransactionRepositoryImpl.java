@@ -11,6 +11,11 @@ import java.util.List;
 
 @Repository
 public class TransactionRepositoryImpl implements TransactionRepository {
+	/*
+	repository implementation that reads transactions from a JSON file named "transactionsMock.json"
+	located in the classpath. It uses Jackson's ObjectMapper to deserialize the JSON data
+	 into an array of Transaction objects.
+	*/
 
 	@Override
 	public List<Transaction> getAllTransactions() throws IOException {
