@@ -13,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class Transaction {
 	private Long id;
-	private double amount;
+	private BigDecimal amount;
 	private String merchant;
 	private TransactionStatus status;
 	private Date date;

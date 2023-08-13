@@ -45,7 +45,7 @@ public class TransactionServiceImpl implements TransactionService {
                             .filter(transaction -> transaction.getStatus().equals(transactionFilter.getStatus()))
                             .collect(Collectors.toList());
                 }
-                if (transactionFilter.getAmount() > 0) {
+                if (transactionFilter.getAmount() != null) {
                     transactions = transactions.stream()
                             .filter(transaction -> transaction.getAmount()==transactionFilter.getAmount())
                             .collect(Collectors.toList());

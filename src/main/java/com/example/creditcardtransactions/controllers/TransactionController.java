@@ -34,7 +34,7 @@ public class TransactionController {
 	public ResponseEntity<Page<Transaction>> listTransactions(
 			@RequestParam(name = "page", defaultValue = "0") int page,
 			@RequestParam(name = "size", defaultValue = "5") int size,
-			@RequestParam(name = "amount", required = false) double amount,
+			@RequestParam(name = "amount", required = false) BigDecimal amount,
 			@RequestParam(name = "merchant", required = false) String merchant,
 			@RequestParam(name = "status", required = false) TransactionStatus status,
 			@RequestParam(name = "sort", defaultValue = "amount") String sort) {
